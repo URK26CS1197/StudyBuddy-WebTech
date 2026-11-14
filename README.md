@@ -26,7 +26,7 @@ Students often lose focus during long study sessions, and plain timer apps are b
 | 🧮 **Calculator** | Digits, `+ - * /`, brackets, `C` and `=`, with error handling for divide-by-zero and invalid input. |
 | 🌧️ **Ambient Sound** | Optional rain sound and a completion chime, both generated in code with the Web Audio API. |
 | 🌗 **Light / Dark Theme** | One-click toggle in the header. Your choice is remembered across sessions. |
-| 🔐 **Auth Pages** | Registration, sign-up and sign-in pages with real-time form validation, plus a guest mode. |
+| 🔐 **Authorisation Pages** | Registration, sign-up and sign-in pages with real-time form validation, plus a guest mode. |
 
 Accounts, tasks, statistics, settings, selected cat and theme are stored in the browser's `localStorage`, so they survive a page refresh.
 
