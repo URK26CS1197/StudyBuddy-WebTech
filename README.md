@@ -5,7 +5,7 @@ Study Buddy Café is a responsive web portal that helps students stay focused wh
 Built as the **IA-3 Micro Project** for **25CS208: Web Technology** (2026-27, Odd Semester), School of Computer Science & Technology, Karunya Institute of Technology and Sciences (KITS). The idea is inspired by the *Study Bunny* app.
 
 🔗 **Vercel link:** https://studybuddy-rosy-two.vercel.app
-📦 **Github Repository:** https://github.com/URK26CS1197/StudyBuddy-WebTech
+📦 **Github Repository:** https://urk26cs1197.github.io/StudyBuddy-WebTech/
 
 ---
 
