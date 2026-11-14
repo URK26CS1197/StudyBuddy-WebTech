@@ -1,76 +1,160 @@
-# ☕ Study Buddy Café
+# ☕ Study Buddy Café: A Pixel Coffee-Shop Pomodoro Study Companion
 
-A cozy pixel-coffee **Pomodoro timer** with cat study buddies and **Grandma Biscuit**, an AI study chatbot that clears doubts, makes quizzes and summarises notes.
-Pure HTML + CSS + vanilla JavaScript front end, plus one tiny serverless function for the live chatbot.
+Study Buddy Café is a responsive web portal that helps students stay focused while studying. It combines a Pomodoro timer, collectible pixel-cat study buddies, a task list, study statistics, a calculator and an AI doubt-solving chatbot (Grandma Biscuit) in one cozy, pixel coffee-themed website with light and dark modes.
 
-## Project structure
+Built as the **IA-3 Micro Project** for **25CS208: Web Technology** (2026-27, Odd Semester), School of Computer Science & Technology, Karunya Institute of Technology and Sciences (KITS). The idea is inspired by the *Study Bunny* app.
+
+🔗 **Vercel link:** https://studybuddy-rosy-two.vercel.app
+📦 **Github Repository:** https://github.com/URK26CS1197/StudyBuddy-WebTech
+
+---
+
+## 📌 Problem Statement
+
+Students often lose focus during long study sessions, and plain timer apps are boring enough that people stop using them. Study Buddy Café makes focused studying more enjoyable: a cat companion sits with you, rewards you for staying on task and unlocks new friends as you finish sessions. A friendly chatbot is also on hand to clear doubts, make quizzes and summarise notes. It needs no installation and works on desktop and mobile.
+
+## ✨ Features
+
+| Module | What it does |
+|---|---|
+| ⏱️ **Pomodoro Timer** | Focus (25 min), Short break (5 min) and Long break (15 min) modes with Start/Pause/Reset/Skip. Durations are customisable, a four-dot tracker shows your rounds, and the countdown also appears in the browser tab title. A pixel coffee mug fills and steams as time passes. |
+| 🐱 **Cat Study Buddies** | Five pixel cats (Miso, Mocha, Espresso, Latte, Cookie) drawn on a canvas. They blink, nap during breaks, celebrate when you finish a session and look sad if you leave the tab for 30+ seconds. Click a cat to pet it. |
+| 🔓 **Unlock & Rewards** | Earn fish treats for every focus session and unlock new cats (Mocha: 1 session, Espresso: 3, Latte: 6, Cookie: 10). |
+| 🧶 **Chatbot (Grandma Biscuit)** | A floating chat panel that explains topics, runs interactive quizzes and summarises pasted notes. It uses live AI when a backend is available and falls back to a built-in keyword engine when offline. |
+| ✅ **Task List** | Add, complete and delete study tasks, with a live "tasks left" counter. |
+| 📊 **Study Statistics** | Sessions and minutes today, lifetime totals, fish treats and a 7-day focus bar chart. |
+| 🧮 **Calculator** | Digits, `+ - * /`, brackets, `C` and `=`, with error handling for divide-by-zero and invalid input. |
+| 🌧️ **Ambient Sound** | Optional rain sound and a completion chime, both generated in code with the Web Audio API. |
+| 🌗 **Light / Dark Theme** | One-click toggle in the header. Your choice is remembered across sessions. |
+| 🔐 **Auth Pages** | Registration, sign-up and sign-in pages with real-time form validation, plus a guest mode. |
+
+Accounts, tasks, statistics, settings, selected cat and theme are stored in the browser's `localStorage`, so they survive a page refresh.
+
+## 🗂️ Project Structure
 
 ```
 study-buddy/
-├── index.html        FR-01  Landing page
-├── register.html     FR-02  Full registration (Regex validation)
-├── signup.html       FR-03  Quick sign-up (email, password, ToS)
-├── signin.html       FR-04  Sign in (eye toggle, error banner, guest mode)
-├── home.html         FR-05  Dashboard (Grid on desktop, Flexbox + drawer on mobile)
+├── index.html          # Landing page (FR-01)
+├── register.html       # Registration + detailed validation (FR-02)
+├── signup.html         # Simple sign-up with Terms checkbox (FR-03)
+├── signin.html         # Sign-in with show/hide password (FR-04)
+├── home.html           # Dashboard (FR-05)
 ├── css/
-│   ├── styles.css    Design tokens, pixel components, chatbot, calculator
-│   └── layout.css    Page layouts + responsive breakpoints
+│   ├── styles.css      # Design tokens, components, theme colours
+│   └── layout.css      # CSS Grid (desktop) / Flexbox (mobile) layouts
 ├── js/
-│   ├── theme.js      FR-07  Light/Dark toggle + localStorage
-│   ├── validation.js FR-02/03  Regex rules, blur/submit validation
-│   ├── auth.js       Account storage + form wiring (register/signup/signin)
-│   ├── chatbot.js    FR-06  FAB, chat panel, offline keyword engine + live AI
-│   ├── calculator.js FR-08  Calculator with zero-division/invalid handling
-│   ├── pomodoro.js   Timer, tasks, stats, sounds, mobile drawer
-│   └── cats.js       Pixel-cat sprite engine (canvas)
-├── api/chat.js       Vercel serverless function (calls Claude; key stays secret)
-├── server.js         Zero-dependency local dev server
-├── vercel.json, package.json, .env.example, .gitignore
-└── assets/miso-siamese.png   Your original pixel cat reference
+│   ├── theme.js        # Light/dark toggle + localStorage (FR-07)
+│   ├── validation.js   # Regex validation rules (FR-02, 03)
+│   ├── auth.js         # Accounts, sign-in logic, form wiring (FR-02, 03, 04)
+│   ├── pomodoro.js     # Timer, cats, tasks, stats, sounds, drawer menu
+│   ├── calculator.js   # Calculator module (FR-08)
+│   ├── chatbot.js      # Floating chatbot (FR-06)
+│   └── cats.js         # Pixel-cat sprite engine (canvas)
+├── api/chat.js         # Serverless function for the live AI chatbot (Vercel)
+├── server.js           # Optional local dev server
+├── assets/             # Original pixel cat reference image
+└── vercel.json, package.json, .env.example, .gitignore
 ```
 
-## Run it locally
+## 🧩 Functional Requirements Coverage
 
-**Option A, instant (offline chatbot):** just double-click `index.html`.
-Everything works except live AI; Grandma automatically falls back to her built-in "recipe book" (keyword answers, quizzes, summariser).
+| ID | Requirement | Where implemented |
+|---|---|---|
+| FR-01 | Landing page with header, theme toggle, hero banner, feature cards, page outline | `index.html` |
+| FR-02 | Registration form with 7 fields, regex validation on `blur` and `submit`, error badges, disabled submit | `register.html`, `validation.js`, `auth.js` |
+| FR-03 | Sign-up form with email, password, Terms consent | `signup.html`, `validation.js` |
+| FR-04 | Sign-in with password eye toggle and error banner | `signin.html`, `auth.js` |
+| FR-05 | Dashboard: CSS Grid on desktop, Flexbox plus hamburger drawer on mobile | `home.html`, `layout.css`, `pomodoro.js` |
+| FR-06 | Floating chatbot with `.user-msg` / `.bot-msg`, keyword replies, auto-scroll | `chatbot.js` |
+| FR-07 | Theme switcher with CSS custom properties and `localStorage` | `theme.js`, `styles.css` |
+| FR-08 | JavaScript calculator with error handling | `calculator.js` |
 
-**Option B, full (live AI chatbot):** needs Node 18+.
+## ✅ Form Validation Rules
 
-```bash
-cp .env.example .env        # then paste your Anthropic API key into .env
-node server.js              # open http://localhost:3000
-```
+| Field | Rule |
+|---|---|
+| Full Name | Letters and spaces only, 2-50 chars: `/^[a-zA-Z\s]{2,50}$/` |
+| Register ID | 6-12 alphanumeric characters: `/^[A-Z0-9]{6,12}$/i` |
+| Email | `/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/` |
+| Mobile | 10 digits starting with 6-9: `/^[6-9]\d{9}$/` |
+| Division | A selection is required |
+| Password | Min 8 chars with uppercase, lowercase, number and a symbol from `@$!%*?&` |
+| Confirm Password | Must match the password |
 
-Get an API key at https://console.anthropic.com.
+Fields are checked when you leave them (`blur`) and on `submit`. Invalid fields get a red border (`input.invalid`) and an inline `<span class="error-msg">`. The submit button stays **disabled** until every field is valid.
 
-## Deploy free on Vercel (about 5 minutes)
+## 💬 Chatbot (Grandma Biscuit)
 
-1. Create a GitHub account → **New repository** → upload all files in this folder (keep the folder layout).
-2. Go to https://vercel.com → sign in with GitHub → **Add New → Project** → import the repo.
-3. Framework preset: **Other**. Leave build/output settings empty → **Deploy**.
-4. In **Project → Settings → Environment Variables** add `ANTHROPIC_API_KEY` (and optionally `ANTHROPIC_MODEL`), then **Redeploy**.
-5. Open your `https://<project>.vercel.app` link. Grandma's header shows **● live · AI** once the key works.
+| Mode | When it is used | How it works |
+|---|---|---|
+| **Live AI** | When the site is hosted with the serverless function and an API key | Messages go to `/api/chat`, which calls the Claude API. The key stays on the server. |
+| **Offline** | GitHub Pages, no API key, no internet, or opening `index.html` directly | A keyword-matching engine in `chatbot.js` answers topics, runs quizzes, summarises notes, gives study tips and solves quick sums. |
 
-Without the key the site still works: the badge reads **○ offline mode**.
+Try asking: `Explain CSS grid`, `Quiz me on web`, `Summarize: <your notes>`, `12*7` or `Give me a study tip`.
 
-Alternative: Netlify/GitHub Pages host the static pages fine, but the live chatbot needs the `api/chat.js` function (Vercel, or adapt it to Netlify Functions).
+## 📱 Responsive Design
 
-## Technical checklist coverage
+- **Desktop (≥ 768px):** the dashboard uses CSS Grid with `grid-template-columns: 250px 1fr 300px`: a left sidebar (cat buddies and timer settings), the centre study area (timer and cat), and a right panel (tasks, stats and calculator).
+- **Mobile (< 768px):** a single-column **Flexbox** stack, with the sidebar moving into a **hamburger (☰) drawer**.
 
-| ID | Requirement | Where |
-|----|-------------|-------|
-| FR-01 | Landing page, nav, hero, features, responsive outline | `index.html` |
-| FR-02 | Register form, Regex rules, error spans, disabled submit | `register.html`, `validation.js` |
-| FR-03 | Sign-up with email/password/ToS | `signup.html`, `validation.js` |
-| FR-04 | Sign-in, eye toggle, error banner | `signin.html`, `auth.js` |
-| FR-05 | Grid 250px / 1fr / 300px desktop; Flexbox column + drawer mobile | `home.html`, `layout.css`, `pomodoro.js` |
-| FR-06 | Chatbot FAB, panel, keyword engine, auto-scroll | `chatbot.js`, `styles.css` |
-| FR-07 | Light/Dark with CSS variables + localStorage | `theme.js`, `styles.css` |
-| FR-08 | Calculator, `C` and `=`, div-by-zero handling | `calculator.js` |
+## 🛠️ Tech Stack
 
-## Notes
+- **HTML5**: semantic structure
+- **CSS3**: custom properties (design tokens), Grid, Flexbox, media queries, keyframe animations
+- **JavaScript (ES6+)**: DOM manipulation, events, regex, `localStorage`, Canvas and Web Audio APIs
+- **Serverless function (Node 18+)** and the **Claude API**: live chatbot
+- **Git & GitHub**: version control and GitHub Pages hosting
+- **Vercel**: optional hosting with HTTPS and the live chatbot
 
-- Accounts are stored in the browser's `localStorage` (passwords are SHA-256 hashed). This is a front-end learning project; a real product would use a server database.
-- The cat sprites are drawn in code (`cats.js`), so there are no image files to load.
-- Unlock cats by completing focus sessions: Mocha 1, Espresso 3, Latte 6, Cookie 10.
-- If you leave the tab for 30+ seconds during a focus session, your cat gets sad and you earn fewer treats.
+No frameworks, build tools or dependencies are required.
+
+## 🚀 Run Locally
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/URK26CS1197/StudyBuddy-WebTech.git
+   cd StudyBuddy-WebTech
+   ```
+2. Open `index.html` in your browser, or use the VS Code **Live Server** extension. The chatbot runs in offline mode.
+3. *(Optional, for live AI)* Copy `.env.example` to `.env`, add your `ANTHROPIC_API_KEY`, run `node server.js` and open http://localhost:3000.
+
+## ☁️ Deployment
+
+**GitHub Pages (static site):**
+1. Push the project to GitHub with the `css/` and `js/` folders intact.
+2. Go to **Settings → Pages**, choose **Deploy from a branch**, select `main` and `/ (root)`, and save.
+
+**Vercel (with live chatbot):**
+1. In Vercel, choose **Add New → Project** and import the repository.
+2. Set the framework preset to **Other**, leave the build settings empty, and click **Deploy**.
+3. Add `ANTHROPIC_API_KEY` under **Settings → Environment Variables** and redeploy.
+
+Every push to `main` redeploys automatically.
+
+## ⚠️ Notes and Limitations
+
+- Authentication is **client-side only**. Accounts are stored in the browser's `localStorage` with hashed passwords, so there is no real user database and accounts do not sync across devices.
+- Data is stored per browser, so clearing site data resets the dashboard.
+- GitHub Pages cannot run the serverless function, so the chatbot is in offline mode there. Deploy on Vercel with an API key for live AI.
+- The pixel fonts load from Google Fonts, so an internet connection is needed to see them.
+
+## 🔮 Future Scope (v2.0)
+
+- Real authentication with a backend and database
+- Sync across devices and shared study rooms
+- More cats, accessories and a fish-treat shop
+- Uploading notes for the chatbot to summarise and turn into flashcards
+- Spaced-repetition reminders and weekly progress reports
+- Installable PWA with notifications
+
+## 👥 Team
+
+| Name | Register No. |
+|---|---|
+| Reyna M | URK26CS1197 |
+
+**Supervisor:** Dr. Titus I
+
+## 📄 License
+
+Created for academic purposes at KITS. Add a license here if you plan to share it publicly.
