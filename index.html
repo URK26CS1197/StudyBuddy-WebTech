@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Study Buddy Café — Pomodoro focus with cat friends</title>
+  <meta name="description" content="A cozy pixel coffee-shop Pomodoro timer where cat study buddies keep you company, plus Grandma Biscuit, an AI study chatbot.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <script src="js/theme.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-cat" data-cat="miso" data-scale="2"></span><span>Study Buddy</span></a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="#features">Features</a>
+      <a href="#cats">Cats</a>
+      <a href="#how">How it works</a>
+      <a href="signin.html">Sign in</a>
+    </nav>
+    <button id="themeToggle" class="btn btn-small" type="button" aria-label="Toggle light and dark theme">☾ Dark</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="badge">☕ COZY FOCUS CAFÉ</span>
+          <h1>Study with a <em>cat buddy</em> by your side</h1>
+          <p class="lead">Brew 25 minutes of deep focus, earn fish treats, unlock new cats, and ask Grandma Biscuit whenever a topic gets confusing.</p>
+          <div class="hero-cta">
+            <a class="btn" href="signup.html">Start studying free</a>
+            <a class="btn btn-alt" href="register.html">Full registration</a>
+            <a class="btn btn-gold" href="signin.html">I have an account</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="big" data-cat="miso" data-scale="8"></div>
+          <div class="big" data-cat="mocha" data-scale="6"></div>
+          <div class="big" data-cat="espresso" data-scale="5"></div>
+          <div class="steam-line">~ ~ ~ pomodoro in progress ~ ~ ~</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <h2>What’s on the menu</h2>
+        <div class="feature-grid">
+          <article class="card feature"><div class="icon">⏱</div><h3>Pomodoro timer</h3><p>Focus, short break and long break modes with a coffee mug that fills as you study.</p></article>
+          <article class="card feature"><div class="icon">🐾</div><h3>Cat study buddies</h3><p>Five pixel cats keep you company. Finish sessions to unlock new friends.</p></article>
+          <article class="card feature"><div class="icon">🧶</div><h3>Grandma Biscuit</h3><p>A chatbot that clears doubts, makes quizzes and summarises your notes.</p></article>
+          <article class="card feature"><div class="icon">✅</div><h3>Tasks &amp; stats</h3><p>Track what you need to do and watch your weekly focus minutes grow.</p></article>
+          <article class="card feature"><div class="icon">🧮</div><h3>Built-in calculator</h3><p>Quick sums without leaving your study room.</p></article>
+          <article class="card feature"><div class="icon">🌙</div><h3>Light &amp; dark café</h3><p>Morning cream or midnight espresso. Your choice is remembered.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cats">
+      <div class="container">
+        <h2>Meet your study buddies</h2>
+        <div class="cat-grid" id="catGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="container">
+        <h2>How it works</h2>
+        <ol class="outline">
+          <li class="card"><h3>1. Sign up</h3><p>Create a free account in seconds, or continue as a guest.</p></li>
+          <li class="card"><h3>2. Pick a cat</h3><p>Choose a buddy and add the tasks you want to finish.</p></li>
+          <li class="card"><h3>3. Focus</h3><p>Start the timer. Stay on the page and your cat stays happy.</p></li>
+          <li class="card"><h3>4. Rest &amp; ask</h3><p>Take a break, earn treats and chat with Grandma if you’re stuck.</p></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Study Buddy Café · 25CS208 Web Technology Micro Project · 2026–27</p>
+  </footer>
+
+  <script src="js/cats.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var grid = document.getElementById('catGrid');
+      Cats.list().forEach(function (id) {
+        var c = Cats.CATS[id], card = document.createElement('article');
+        card.className = 'card cat-card';
+        var holder = document.createElement('div');
+        card.appendChild(holder);
+        card.insertAdjacentHTML('beforeend', '<h3>' + c.name + '</h3><small>' + c.breed + '</small><p>' + c.blurb + '</p>' +
+          '<span class="badge">' + (c.unlock === 0 ? 'STARTER' : 'UNLOCK AT ' + c.unlock + (c.unlock === 1 ? ' SESSION' : ' SESSIONS')) + '</span>');
+        grid.appendChild(card);
+        Cats.mount(holder, id, { scale: 6 });
+      });
+    });
+  </script>
+  <script src="js/calculator.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

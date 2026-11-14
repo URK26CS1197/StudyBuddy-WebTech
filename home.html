@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Study Buddy</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <script src="js/theme.js"></script>
+</head>
+<body class="home-body">
+  <header class="topbar">
+    <button id="menuBtn" class="hamburger" type="button" aria-label="Open menu" aria-controls="drawer" aria-expanded="false">☰</button>
+    <a class="brand" href="index.html"><span class="brand-cat" data-cat="miso" data-scale="2"></span><span>Study Buddy</span></a>
+    <span id="greeting" class="greeting"></span>
+    <button id="themeToggle" class="btn btn-small" type="button" aria-label="Toggle light and dark theme">☾ Dark</button>
+    <button id="signOut" class="btn btn-small" type="button">Sign out</button>
+  </header>
+  <div id="scrim" class="scrim"></div>
+
+  <div class="dashboard">
+    <!-- LEFT: buddies & settings (drawer on mobile) -->
+    <aside id="drawer" class="sidebar" aria-label="Cats and settings">
+      <div class="drawer-head"><span>MENU</span><button type="button" onclick="document.getElementById('scrim').click()" aria-label="Close menu">✕</button></div>
+      <section class="card">
+        <h2>Your buddies</h2>
+        <ul id="catList" class="cat-list"></ul>
+      </section>
+      <section class="card">
+        <h2>Timer settings</h2>
+        <div class="setting-row"><label for="set-focus">Focus (min)</label><input id="set-focus" type="number" min="1" max="120"></div>
+        <div class="setting-row"><label for="set-short">Short break</label><input id="set-short" type="number" min="1" max="120"></div>
+        <div class="setting-row"><label for="set-long">Long break</label><input id="set-long" type="number" min="1" max="120"></div>
+        <div class="toggle-row"><input type="checkbox" id="opt-chime"><label for="opt-chime">Chime when done</label></div>
+        <div class="toggle-row"><input type="checkbox" id="opt-rain"><label for="opt-rain">Rain on the café window</label></div>
+        <div class="toggle-row"><input type="checkbox" id="opt-auto"><label for="opt-auto">Auto-start next round</label></div>
+      </section>
+    </aside>
+
+    <!-- CENTRE: timer + cat -->
+    <main class="main">
+      <section class="card">
+        <div id="modeTabs" class="tabs" role="tablist" aria-label="Timer mode">
+          <button type="button" role="tab" data-mode="focus">Focus</button>
+          <button type="button" role="tab" data-mode="short">Short break</button>
+          <button type="button" role="tab" data-mode="long">Long break</button>
+        </div>
+        <div class="mug-wrap" aria-hidden="true">
+          <div class="mug" id="mug">
+            <span class="steam"></span><span class="steam"></span><span class="steam"></span>
+            <div class="mug-body"><div class="mug-fill" id="mugFill"></div></div>
+            <div class="mug-handle"></div>
+          </div>
+        </div>
+        <div id="time" class="time" role="timer" aria-live="off">25:00</div>
+        <p id="progressText" class="progress-text"></p>
+        <div id="dots" class="dots" aria-label="Focus rounds before long break"><i></i><i></i><i></i><i></i></div>
+        <div class="controls">
+          <button id="startBtn" class="btn" type="button">Start</button>
+          <button id="resetBtn" class="btn btn-alt" type="button">Reset</button>
+          <button id="skipBtn" class="btn btn-alt" type="button">Skip</button>
+        </div>
+      </section>
+
+      <section class="card cat-stage" id="catStage">
+        <div class="cat-holder" title="Pet your cat"></div>
+        <div id="catBubble" class="bubble" aria-live="polite"></div>
+        <p class="fish">🐟 Fish treats: <span id="fishCount">0</span></p>
+      </section>
+    </main>
+
+    <!-- RIGHT: tasks, stats, calculator -->
+    <aside class="rightbar" aria-label="Tasks, stats and calculator">
+      <section class="card">
+        <h2>Tasks <small id="taskCount" style="font-family:var(--font-body);font-size:1.1rem;color:var(--muted)"></small></h2>
+        <form id="taskForm" class="task-form">
+          <input id="taskInput" type="text" maxlength="80" placeholder="What will you study?" aria-label="New task">
+          <button class="btn btn-small" type="submit">Add</button>
+        </form>
+        <ul id="taskList" class="tasks"></ul>
+      </section>
+
+      <section class="card">
+        <h2>Your stats</h2>
+        <div class="stat-grid">
+          <div class="stat"><b id="statToday">0</b><small>sessions today</small></div>
+          <div class="stat"><b id="statMin">0</b><small>minutes today</small></div>
+          <div class="stat"><b id="statTotal">0</b><small>total sessions</small></div>
+          <div class="stat"><b id="statFish">0</b><small>fish treats</small></div>
+        </div>
+        <h3>Last 7 days</h3>
+        <div id="weekChart" class="week-chart" aria-label="Minutes studied in the last 7 days"></div>
+      </section>
+
+      <section class="card calc" id="calculator" tabindex="0" aria-label="Calculator">
+        <h2>Calculator</h2>
+        <div id="calc-display" class="calc-display" aria-live="polite">0</div>
+        <div class="calc-grid"></div>
+      </section>
+    </aside>
+  </div>
+
+  <script src="js/cats.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/pomodoro.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

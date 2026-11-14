@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register — Study Buddy Café</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <script src="js/theme.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-cat" data-cat="miso" data-scale="2"></span><span>Study Buddy</span></a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#cats">Cats</a>
+      <a href="signin.html">Sign in</a>
+    </nav>
+    <button id="themeToggle" class="btn btn-small" type="button" aria-label="Toggle light and dark theme">☾ Dark</button>
+  </header>
+
+  <main class="auth-wrap">
+    <section class="card auth-card">
+      <div class="auth-cat" data-cat="mocha" data-scale="5"></div>
+      <h1>Create your student profile</h1>
+      <p class="sub">All fields are checked as you type. The button wakes up when everything is valid.</p>
+      <div id="formAlert" class="alert" role="status" hidden></div>
+
+      <form id="registerForm" data-validate novalidate>
+        <div class="field">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" name="fullName" data-rule="name" autocomplete="name" placeholder="e.g. Anita Rao">
+          <span class="error-msg"></span>
+        </div>
+        <div class="form-row-2">
+          <div class="field">
+            <label for="empId">Employee / Register ID</label>
+            <input type="text" id="empId" name="empId" data-rule="empId" placeholder="e.g. URK26CS1001" maxlength="12">
+            <span class="error-msg"></span>
+          </div>
+          <div class="field">
+            <label for="mobile">Mobile Number</label>
+            <input type="tel" id="mobile" name="mobile" data-rule="mobile" inputmode="numeric" maxlength="10" placeholder="10 digits" autocomplete="tel">
+            <span class="error-msg"></span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" data-rule="email" autocomplete="email" placeholder="you@example.com">
+          <span class="error-msg"></span>
+        </div>
+        <div class="field">
+          <label for="dept">Division</label>
+          <select id="dept" name="dept" data-rule="dept">
+            <option value="">— Select your division —</option>
+            <option>Computer Science &amp; Engineering</option>
+            <option>Electronics &amp; Communication</option>
+            <option>Electrical &amp; Electronics</option>
+            <option>Mechanical Engineering</option>
+            <option>Civil Engineering</option>
+            <option>Other</option>
+          </select>
+          <span class="error-msg"></span>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" data-rule="password" autocomplete="new-password" placeholder="Min 8 chars, Aa1@">
+          <span class="error-msg"></span>
+          <p class="hint">Needs uppercase, lowercase, a number and one of @ $ ! % * ? &amp;</p>
+        </div>
+        <div class="field">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" data-rule="confirm" autocomplete="new-password" placeholder="Repeat password">
+          <span class="error-msg"></span>
+        </div>
+        <button type="submit" class="btn btn-block" disabled>Create account</button>
+      </form>
+      <p class="auth-links">Already registered? <a href="signin.html">Sign in</a> · <a href="signup.html">Quick sign-up</a></p>
+    </section>
+  </main>
+
+  <script src="js/cats.js"></script>
+  <script src="js/validation.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>
